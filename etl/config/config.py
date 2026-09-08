@@ -16,6 +16,14 @@ class ClickhouseDatabaseSettings(BaseSettings):
     clickhouse_secure: bool = Field(default=False)
     pool_size: int = Field(default=5, ge=1, le=20)
 
+
+class RedisSettings(BaseSettings): 
+    """Nested configuration for Airflow's Redis db=1"""
+    redis_host: str = Field(default="localhost")
+    redis_port: int = Field(default=6379)
+    redis_db: int = Field(default=1)
+
+
 class Settings(BaseSettings): 
     """Main settinghs configuration loaded from .env variables"""
 
@@ -31,6 +39,7 @@ class Settings(BaseSettings):
     DEADLOCK_API_BASE_URL: str
 
     CLICKHOUSE: ClickhouseDatabaseSettings = ClickhouseDatabaseSettings() 
+    REDIS: RedisSettings = RedisSettings() 
 
     model_config = SettingsConfigDict(
         env_file=os.path.join(BASE_DIR, ".env"),
