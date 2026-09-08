@@ -2,8 +2,12 @@ import enum
 import logging
 import clickhouse_connect.driver.exceptions as e 
 from etl.clients.db.clickhouse_client import ClickHouseConnection
+from clickhouse_connect.driver.exceptions import ClickHouseError, OperationalError, DataError, ProgrammingError
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential_jitter
+
 
 logger = logging.getLogger(__name__)
+
 
 class GoldTable(enum.Enum):
     SYNERGY = ("synergy_matrix", ["hero_1", "hero_2", "total_games", "wins", "win_rate"])
@@ -14,7 +18,12 @@ class GoldTable(enum.Enum):
         self.table_name = table_name
         self.columns = columns
 
-
+@retry(
+    retry=retry_if_exception_type((OperationalError)),
+    stop=stop_after_attempt(5),
+    wait=wait_exponential_jitter(initial=1, max=10, jitter=2),
+    reraise=True
+)
 def load_gold_data(data: list[dict] | None, table: GoldTable) -> None: 
     if data is not None:
         try: 
@@ -23,16 +32,16 @@ def load_gold_data(data: list[dict] | None, table: GoldTable) -> None:
             rows = [list(row) for row in data]
             client.insert(table=f"gold.{table.table_name}", data=rows, column_names=column_names)
             logger.info("Insert Batch Gold Data Complete")
-        except e.OperationalError as er:
-            #TODO: Retry Logic
-            logger.error(f"Insert Gold Data Failed: {er}: Need Retry")
+
+
+        except (DataError, ProgrammingError) as er:
+            logger.error(f"Insert Failed: {er} : retrying")
             raise
 
-        except e.DataError as er: 
-            logger.error(f"Gold Data Error: {er}")
+        except (OperationalError, ClickHouseError) as er: 
+            logger.error(f"Insert Failed: {er} : Need Retry")  
+            raise 
 
-        except e.ProgrammingError as er: 
-            logger.error(f"Configuration Error: {er}") 
 
     else: 
         logger.error("No valid data")
