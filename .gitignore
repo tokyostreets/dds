@@ -1,0 +1,5 @@
+# env's
+.env
+
+# temp's
+TEMPLATES/
