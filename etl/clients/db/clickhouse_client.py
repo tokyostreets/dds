@@ -1,6 +1,6 @@
 import threading
 from clickhouse_connect import get_client
-from config.config import settings 
+from etl.config.config import settings
 
 
 class ClickHouseConnection:

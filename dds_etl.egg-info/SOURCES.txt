@@ -3,7 +3,9 @@ pyproject.toml
 dds_etl.egg-info/PKG-INFO
 dds_etl.egg-info/SOURCES.txt
 dds_etl.egg-info/dependency_links.txt
+dds_etl.egg-info/requires.txt
 dds_etl.egg-info/top_level.txt
+etl/__init__.py
 etl/clients/__init__.py
 etl/clients/api/__init__.py
 etl/clients/api/deadlock_api_client.py
@@ -11,6 +13,7 @@ etl/clients/db/__init__.py
 etl/clients/db/clickhouse_client.py
 etl/config/__init__.py
 etl/config/config.py
+etl/gold/__init__.py
 etl/gold/extract_silver_data.py
 etl/gold/load.py
 etl/gold/transform.py
@@ -22,6 +25,7 @@ etl/pipelines/raw_pipeline.py
 etl/raw/__init__.py
 etl/raw/extract_api_data.py
 etl/raw/load.py
+etl/silver/__init__.py
 etl/silver/extract_raw_data.py
 etl/silver/load.py
 etl/silver/transform_data.py

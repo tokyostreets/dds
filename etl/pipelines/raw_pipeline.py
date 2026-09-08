@@ -1,7 +1,7 @@
-from clients.db.clickhouse_client import ClickHouseConnection 
-from clients.api.deadlock_api_client import fetch_bulk_metadata
-from raw.extract_api_data import parse_matches
-from raw.load import load_raw_data
+from etl.clients.db.clickhouse_client import ClickHouseConnection 
+from etl.clients.api.deadlock_api_client import fetch_bulk_metadata
+from etl.raw.extract_api_data import parse_matches
+from etl.raw.load import load_raw_data
 
 def run_raw_pipeline(): 
     #TODO: REDIS CACHE FOR CHECKING last_match_id

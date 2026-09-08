@@ -1,7 +1,7 @@
 import requests
 import logging
 
-from config.config import settings
+from etl.config.config import settings
  
 logger = logging.getLogger(__name__)
 

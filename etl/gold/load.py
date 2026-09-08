@@ -1,7 +1,7 @@
 import enum
 import logging
 import clickhouse_connect.driver.exceptions as e 
-from clients.db.clickhouse_client import ClickHouseConnection
+from etl.clients.db.clickhouse_client import ClickHouseConnection
 
 logger = logging.getLogger(__name__)
 
