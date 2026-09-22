@@ -4,9 +4,9 @@
 # temp's
 TEMPLATES/
 
-__pycache__/*
-__pycache__
+__pycache__/
+*.pyc
 
-dds_etl.egg-info
+dds_etl.egg-info/
 
-logs/*
+logs/
