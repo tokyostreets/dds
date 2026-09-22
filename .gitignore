@@ -3,3 +3,10 @@
 
 # temp's
 TEMPLATES/
+
+__pycache__/*
+__pycache__
+
+dds_etl.egg-info
+
+logs/*
