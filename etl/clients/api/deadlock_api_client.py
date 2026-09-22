@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 def fetch_bulk_metadata(min_match_id: int) -> list | None: 
     try:
         search_params = {"min_match_id": min_match_id, "include_player_info": "true"}
-        response = requests.get(f'{settings.DEADLOCK_API_BASE_URL}/v1/matches/metadata', params=search_params)
+        response = requests.get(f'{settings.DEADLOCK_API_BASE_URL}/v1/matches/metadata', params=search_params, timeout=10)
         
         if response.status_code == 200: 
             data = response.json()
