@@ -133,8 +133,6 @@ Settings are loaded from `.env` via `pydantic-settings` (see `etl/config/config.
 
 Left intentionally visible as this is a work-in-progress portfolio build:
 
-- No caching of `last_match_id` between runs yet — it's recomputed from ClickHouse each time (a Redis cache is planned, see `TODO` in `raw_pipeline.py`)
-- No retry/backoff on transient ClickHouse insert failures (`TODO` in `raw/load.py`, `gold/load.py`)
 - No automated tests yet
 - No downstream consumer app included in this repo — the gold tables are designed to be queried by a future draft-simulator frontend/API
 
